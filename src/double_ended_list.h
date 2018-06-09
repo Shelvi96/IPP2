@@ -8,7 +8,6 @@
 
 #ifndef DOUBLE_ENDED_LIST_H
 #define DOUBLE_ENDED_LIST_H
-#define enter printf("\n");
 
 /**
  * Struktura przechowująca pojedyncze elementy listy dwustronnej.
