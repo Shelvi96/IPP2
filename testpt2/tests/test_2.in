@@ -1,0 +1,32 @@
+NEW NEWNEW
+456 > 123
+? 123
+DEL NEWNEW
+NEW DELDEL
+457 > 124
+? 124
+DEL DELDEL
+NEW new
+458 > 125
+? 125
+DEL new
+NEW del
+459 > 126
+? 126
+DEL del
+NEW ne
+460 > 127
+? 127
+DEL ne
+NEW de
+461 > 128
+? 128
+DEL de
+NEW n
+462 > 129
+? 129
+DEL n
+NEW d
+463 > 130
+? 130
+DEL d
