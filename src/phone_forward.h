@@ -41,7 +41,7 @@ PhoneForward* phfwdNew(void);
 /** @brief Usuwa strukturę.
  * Usuwa strukturę wskazywaną przez @p pf. Nic nie robi, jeśli wskaźnik ten ma
  * wartość NULL.
- * @param[in] pf – wskaźnik na usuwaną strukturę.
+ * @param[in] pf  – wskaźnik na strukturę przechowującą przekierowania numerów.
  */
 void phfwdDelete(PhoneForward* pf);
 
@@ -50,7 +50,7 @@ void phfwdDelete(PhoneForward* pf);
  * w których ten prefiks zamieniono odpowiednio na prefiks @p num2. Każdy numer
  * jest swoim własnym prefiksem. Jeśli wcześniej zostało dodane przekierowanie
  * z takim samym parametrem @p num1, to jest ono zastępowane.
- * @param[in] pf   – wskaźnik na strukturę przechowującą przekierowania numerów;
+ * @param[in] pf   – wskaźnik na strukturę przechowującą przekierowania numerów.
  * @param[in] num1 – wskaźnik na napis reprezentujący prefiks numerów
  *                   przekierowywanych;
  * @param[in] num2 – wskaźnik na napis reprezentujący prefiks numerów, na które
@@ -67,7 +67,7 @@ bool phfwdAdd(PhoneForward* pf, char const* num1, char const* num2);
  * parametru @p num1 użytego przy dodawaniu. Jeśli nie ma takich przekierowań
  * lub napis nie reprezentuje numeru, nic nie robi.
  *
- * @param[in] pf  – wskaźnik na strukturę przechowującą przekierowania numerów;
+ * @param[in] pf  – wskaźnik na strukturę przechowującą przekierowania numerów.
  * @param[in] num – wskaźnik na napis reprezentujący prefiks numerów.
  */
 void phfwdRemove(PhoneForward* pf, char const *num);
@@ -78,7 +78,7 @@ void phfwdRemove(PhoneForward* pf, char const *num);
  * przekierowany, to wynikiem jest ten numer. Jeśli podany napis nie
  * reprezentuje numeru, wynikiem jest pusty ciąg. Alokuje strukturę
  * @p PhoneNumbers,która musi być zwolniona za pomocą funkcji @ref phnumDelete.
- * @param[in] pf  – wskaźnik na strukturę przechowującą przekierowania numerów;
+ * @param[in] pf  – wskaźnik na strukturę przechowującą przekierowania numerów.
  * @param[in] num – wskaźnik na napis reprezentujący numer.
  * @return Wskaźnik na strukturę przechowującą ciąg numerów lub NULL, gdy nie
  *         udało się zaalokować pamięci.
@@ -91,7 +91,7 @@ PhoneNumbers const* phfwdGet(PhoneForward *pf, char const *num);
  * powtarzać. Jeśli podany napis nie reprezentuje numeru, wynikiem jest pusty
  * ciąg. Alokuje strukturę @p PhoneNumbers, która musi być zwolniona za pomocą
  * funkcji @ref phnumDelete.
- * @param[in] pf  – wskaźnik na strukturę przechowującą przekierowania numerów;
+ * @param[in] pf  – wskaźnik na strukturę przechowującą przekierowania numerów.
  * @param[in] num – wskaźnik na napis reprezentujący numer.
  * @return Wskaźnik na strukturę przechowującą ciąg numerów lub NULL, gdy nie
  *         udało się zaalokować pamięci.
@@ -115,8 +115,12 @@ void phnumDelete(PhoneNumbers const* pnum);
  */
 char const* phnumGet(PhoneNumbers const* pnum, size_t idx);
 
-/** @brief Todo
- * Todo todo todo
+/** @brief Oblicza liczbę nietrywialnych numerów.
+ * Oblicza liczbę nietrywialnych numerów długości @p len zawierających tylko cyfry, które znajdują się w napisie @p set.
+ * @param[in] pf  – wskaźnik na strukturę przechowującą przekierowania numerów.
+ * @param[in] set – wskaźnik na napis, z którego cyfr budujemy numer.
+ * @param[in] len – długość poszukiwanych numerów.
+ * @return liczbę nietrywialnych numerów.
  */
 size_t phfwdNonTrivialCount(struct PhoneForward *pf, char const *set, size_t len);
 

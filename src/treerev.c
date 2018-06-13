@@ -54,12 +54,12 @@ delNode* revAddRev (revTree* t, char const* numadd, char const* number) {
 		int c = numadd[i] - '0';
 
 		if (n->nums[c] == NULL) {
+
 			n->nums[c] = revSetNode();
 
 			if (n->nums[c] == NULL){
 				return NULL;
 			}
-
 		}
 
 		n = n->nums[c];
@@ -121,7 +121,6 @@ size_t revFindNonTrivialCountRec (revNode* n, bool* uniqueSet, size_t len, size_
 			
 			wynik += revFindNonTrivialCountRec(n->nums[i], uniqueSet, len, lenCount+1, liczbaCyfr);
 		}
-
 	}
 
 	return wynik;

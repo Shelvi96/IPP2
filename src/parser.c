@@ -26,7 +26,6 @@ bool equals (char* a, char* b) {
 	}
 
 	return true;
-
 }
 
 void ignoreComment () {
@@ -50,7 +49,6 @@ void ignoreComment () {
 	numOfChar += l;
 	isDollar = false;
 	isComment = false;
-
 }
 
 bool ignoreWhitespaces () {
@@ -64,31 +62,34 @@ bool ignoreWhitespaces () {
 	}
 
 	numOfChar += l;
-	if (c == EOF)
+	if (c == EOF) {
 		isEOF = true;
+	}
 	ungetc(c, stdin);
 
-	if(l > 0)
+	if(l > 0) {
 		return true;
+	}
+
 	return false;
 }
 
 bool isDigit (char c) {
 
-	if (c >= '0' && c <= ';')
+	if (c >= '0' && c <= ';') {
 		return true;
+	}
 
 	return false;
-
 }
 
 bool isLetter (char c) {
 
-	if ( (c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z'))
+	if ( (c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z')){
 		return true;
+	}
 
 	return false;
-
 }
 
 bool isNumber (char* lexeme) {
@@ -96,12 +97,12 @@ bool isNumber (char* lexeme) {
 	int len = strlen(lexeme);
 
 	for (int i = 0; i < len; ++i) {
-		if (!isDigit(lexeme[i]))
+		if (!isDigit(lexeme[i])) {
 			return false;
+		}
 	}
 
 	return true;
-
 }
 
 bool isId (char* lexeme) {
@@ -111,16 +112,15 @@ bool isId (char* lexeme) {
 		int len = strlen(lexeme);
 
 		for (int i = 1; i < len; ++i) {
-			if (!isDigit(lexeme[i]) && !isLetter(lexeme[i]))
+			if (!isDigit(lexeme[i]) && !isLetter(lexeme[i])) {
 				return false;
+			}
 		}
 
 		return true;
-
 	}
 
 	return false;
-
 }
 
 int findLexemeType (char* lexeme) {
@@ -136,7 +136,6 @@ int findLexemeType (char* lexeme) {
 	isError = true;
 	errorChar = numOfChar;
 	return -1;
-
 }
 
 Lexeme makeLexeme(char* lexeme, int sc) {
@@ -147,23 +146,24 @@ Lexeme makeLexeme(char* lexeme, int sc) {
 	l.startChar = sc;
 
 	return l;
-
 }
 
 void printError () {
 
 	if (errorChar != -2) {
 
-		if (errorChar == -1)
+		if (errorChar == -1) {
 			fprintf(stderr, "ERROR EOF\n");
-		else
+		}
+		else {
 			fprintf(stderr, "ERROR %d\n", errorChar);
+		}
 
 	}
-
 }
 
 bool hasNext () {
+
 	return !isEOF && !isError;
 }
 
@@ -182,8 +182,9 @@ Lexeme getNextLexeme () {
 
 	    // Jesli pojawil sie bialy znak, to ignorujemy je wszystkie i zwracamy
     	// wczytany do tej pory leksem
-		if(ignoreWhitespaces() && i > 0)
+		if(ignoreWhitespaces() && i > 0) {
 			break;
+		}
 
 		// Wczytujemy kolejny znak, sprawdzamy czy to nie EOF
 		c = getchar();
@@ -198,6 +199,7 @@ Lexeme getNextLexeme () {
 		/* ************************************ */
 		dolar:
 		if (c == '$') {
+
 			c = getchar();
 
 			if (c == EOF) {
@@ -215,19 +217,23 @@ Lexeme getNextLexeme () {
 			ignoreComment();
 			ignoreWhitespaces();
 
-			if(strlen(lexeme) != 0)
+			if(strlen(lexeme) != 0) {
 				break;
+			}
 
 			sc = numOfChar;
 			c = getchar();
+
 			if (c == '$') {
 				goto dolar;
 			}
-			if (c == EOF)
-				break;
 
+			if (c == EOF) {
+				break;
+			}
 		}
 		else {
+
 			// jak pojawił się jeden dollar ale po nim nie było dollara, to błąd
 			if (isDollar) {
 				lexeme[--i] = '\0';
@@ -311,7 +317,6 @@ Lexeme getNextLexeme () {
 		if (i == size-1) {
 			lexeme = realloc(lexeme, sizeof(char)*(size *= 2));
 		}
-
 	}
 
 	Lexeme l = makeLexeme(lexeme, sc);
@@ -322,5 +327,4 @@ Lexeme getNextLexeme () {
 	numOfChar += i;
 
 	return l;
-
 }

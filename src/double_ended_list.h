@@ -36,6 +36,7 @@ typedef struct deList {
  * @return Wskaźnik na utworzony element listy.
  */
 delNode* delSetNode(char const* x);
+
 /** @brief Tworzy nową listę.
  * Tworzy nową listę i inicjalizuje strażników.
  * @return Nowa lista lub NULL, gdy zabrakło pamięci.
@@ -48,6 +49,7 @@ deList* delSetList ();
  * @param[in] x	- wskaźnik na element, który chcemy dodać.
  */
 void delAddFront (deList* l, char const* x);
+
 /** @brief Dodaje element do listy.
  * Dodaje element tak, by lista była posortowana leksykograficznie.
  * @param[in] l - wskaźnik na listę, do której ma zostać dodany element.
@@ -90,9 +92,8 @@ void delCopyList (deList* l1, deList* l2, char const* num, unsigned int idx);
  */
 void delDeleteList (deList* l);
 
-/**
- * @brief Todo
- * Todo todo todo
+/** @brief Sprawdza, czy list jest pusta
+ * @return true, jeśli lista @p l jest pusta, false w przeciwnym wypadku.
  */
 bool delIsEmpty (deList* l);
 

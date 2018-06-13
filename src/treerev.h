@@ -31,10 +31,12 @@ typedef struct revTree {
  * Tworzy nowy wierzchołek drzewa.
  */
 revNode* revSetNode ();
+
 /**
  * Tworzy nowe drzewo.
  */
 revTree* revSetTree ();
+
 /** @brief Usuwa poddrzewo.
  * Usuwa poddrzewo zakorzenione w wierzchołku wskazywanym przez @p n.
  * @param[in] n	- Wskaźnik na korzeń poddrzewa.
@@ -60,8 +62,15 @@ delNode* revAddRev (revTree* t, char const* numadd, char const* number);
  */
 deList* revFindRev (revTree* t, char const* number);
 
-/** @brief Todo
- * Todo todo todo
+/** @brief Oblicza liczbę nietrywialnych numerów.
+ * Wyszukuje w drzewie rev wszystkie spełniające kryteria numery i oblicza liczbę
+ * wszystkich nietrywialnych numerów długości @p len złożonych z cyfr opisanych w
+ * @p uniqueSet.
+ * @param[in] root		- wskaźnik na korzeń drzewa rev.
+ * @param[in] uniqueSet	- tablica przechowująca informacje o dostępnych cyfrach.
+ * @param[in] len		- długość numeru.
+ * @param[in] lCyfr		- liczba cyfr, z których konstruujemy numery.
+ * @return liczbę nietrywialnych numerów.
  */
 size_t revFindNonTrivialCount(revNode* root, bool* uniqueSet, size_t len, size_t lCyfr);
 

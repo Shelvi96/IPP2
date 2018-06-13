@@ -6,50 +6,71 @@
 #include "treefwd.h"
 
 fwdNode* fwdSetNode () {
+
 	fwdNode* n = (fwdNode*)malloc(sizeof(fwdNode));
 	if (n != NULL) {
-		for(size_t i = 0; i < 12; ++i)
+
+		for(size_t i = 0; i < 12; ++i) {
 			n->nums[i] = NULL;
+		}
+
 		n->pointRev = NULL;
 		n->numFwd = NULL;
 	}
+
 	return n;
 }
 
 fwdTree* fwdSetTree () {
+
 	fwdTree* t = (fwdTree*)malloc(sizeof(fwdTree));
-	if (t != NULL)
+	if (t != NULL) {
 		t->root = fwdSetNode();
+	}
+
 	return t;
 }
 
 void fwdDeleteSubtree (fwdNode* n) {
+
 	for (size_t i = 0; i < 12; ++i) {
-		if (n->nums[i] != NULL)
+		if (n->nums[i] != NULL) {
 			fwdDeleteSubtree(n->nums[i]);
+		}
 	}
-	if (n->numFwd != NULL) 
+
+	if (n->numFwd != NULL) {
 		free((void*)(n->numFwd));
+	}
+
 	free(n);
 }
 
 bool fwdAddFwd (fwdTree* t, char const* numadd, char const* number, delNode* r) {
+
 	fwdNode* n = t->root;
-	if (strcmp(numadd, number) == 0)
+	if (strcmp(numadd, number) == 0) {
 		return false;
+	}
+
 	size_t dl = strlen(numadd);
 	for (size_t i = 0; i < dl; ++i) {
+
 		int c = numadd[i] - '0';
+
 		if (n->nums[c] == NULL) {
 			n->nums[c] = fwdSetNode();
 		}
+
 		n = n->nums[c];
 	}
 	if (n->pointRev != NULL) {
+
 		delRemoveNode(n->pointRev);
 		n->pointRev = NULL;
 	}
 	if (n->numFwd != NULL) {
+
 		free((void*)n->numFwd);
 		n->numFwd = NULL;
 	}
@@ -62,11 +83,15 @@ bool fwdAddFwd (fwdTree* t, char const* numadd, char const* number, delNode* r) 
 }
 
 void fwdDeleteSubfwd (fwdNode* n) {
+
 	if (n != NULL) {
+
 		for (size_t i = 0; i < 12; ++i) {
-			if (n->nums[i] != NULL)
+			if (n->nums[i] != NULL) {
 				fwdDeleteSubfwd(n->nums[i]);
+			}
 		}
+
 		if (n->numFwd != NULL) {
 			free((void*)n->numFwd);
 			n->numFwd = NULL;
@@ -79,11 +104,14 @@ void fwdDeleteSubfwd (fwdNode* n) {
 }
 
 void fwdRemoveFwd (fwdTree* t, char const* number) {
+
 	fwdNode* n = t->root;
 	bool exists = true;
 	size_t i = 0;
 	size_t dl = strlen(number);
+
 	for (i = 0; i < dl; ++i) {
+
 		int c = number[i] - '0';
 		if (n->nums[c] == NULL) {
 			exists = false;
@@ -93,20 +121,26 @@ void fwdRemoveFwd (fwdTree* t, char const* number) {
 			n = n->nums[c];
 		}
 	}
-	if (exists)
+
+	if (exists){
 		fwdDeleteSubfwd(n);
+	}
 }
 
 deList* fwdFindFwd (fwdTree* t, char const* number) {
+
 	fwdNode* n = t->root;
 	char* f = NULL;
 	size_t i = 0, j = 0;
 	size_t dl = strlen(number);
+
 	while (i < dl && n->nums[(int)(number[i]-'0')] != NULL) {
+
 		if (n->numFwd != NULL) {
 			f = (char*)(n->numFwd);
 			j = i;
 		}
+		
 		n = n->nums[(int)(number[i]-'0')];
 		++i;
 	}

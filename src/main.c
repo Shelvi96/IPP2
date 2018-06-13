@@ -22,7 +22,6 @@ FwdBase* makeBase (char* id) {
     fb->base = phfwdNew();
 
     return fb;
-
 }
 
 bool setBase (char* b) {
@@ -37,7 +36,6 @@ bool setBase (char* b) {
             isBase = true;
             break;
         }
-
     }
     
     if (isBase) {
@@ -51,7 +49,6 @@ bool setBase (char* b) {
     }   
 
     return true;
-
 }
 
 bool delBase (char* b, int sc) {
@@ -64,7 +61,6 @@ bool delBase (char* b, int sc) {
             ind = i;
             break;
         }
-
     }
 
     if (ind != -1) {
@@ -79,15 +75,16 @@ bool delBase (char* b, int sc) {
     }
 
     return true;
-
 }
 
 void delBases () {
+
     for (int i = 0; i < numOfBases; ++i) {
         free(Base[i]->id);
         phfwdDelete(Base[i]->base);
         free(Base[i]);
     }       
+
     free(Base);
 }
 
@@ -103,10 +100,10 @@ void checkIsEOF (Lexeme l) {
     }
 
     ungetc(c, stdin);
-
 }
 
 void exit1 (Lexeme l, Lexeme l1) {
+
     free(l1.content);
     free(l.content);
     delBases();
@@ -144,9 +141,7 @@ int main() {
                 }
 
                 free(l1.content);
-
             }
-
         }
         else if (l.type == 5) { // wczytano DEL
 
@@ -163,7 +158,6 @@ int main() {
                     }
 
                     delBase(l1.content, l.startChar);
-                    
                 }
                 else if (l1.type == 0 && currentBase != NULL) { // wczytano numer
                     phfwdRemove(currentBase->base, l1.content);
@@ -174,9 +168,7 @@ int main() {
                 }
 
                 free(l1.content);
-
             }
-
         }
         else if (l.type == 0) { // wczytano numer
 
@@ -217,7 +209,6 @@ int main() {
                                 free(l2.content);
                                 exit1(l, l1);
                             }
-
                         }
                         else if (currentBase == NULL) {
                             fprintf(stderr, "ERROR > %d\n", l1.startChar);
@@ -231,9 +222,7 @@ int main() {
                         }
 
                         free(l2.content);
-
                     }
-
                 }
                 else {
                     fprintf(stderr, "ERROR %d\n", l1.startChar);
@@ -241,10 +230,7 @@ int main() {
                 }
 
                 free(l1.content);
-
             }
-
-
         }
         else if (l.type == 3) { // wczytano ?
 
@@ -265,7 +251,6 @@ int main() {
                     }
 
                     phnumDelete(pnum);
-
                 }
                 else if (currentBase == NULL) {
                     fprintf(stderr, "ERROR ? %d\n", l.startChar);
@@ -277,9 +262,7 @@ int main() {
                 }
 
                 free(l1.content);
-
             }
-
         }
         else if (l.type == 6) {
             checkIsEOF(l);
@@ -292,7 +275,6 @@ int main() {
                     int len = strlen(l1.content) - 12;
                     if (len < 0) len = 0;
                     printf("%zu\n", phfwdNonTrivialCount(currentBase->base, l1.content, len));
-
                 }
                 else if (currentBase == NULL) {
                     fprintf(stderr, "ERROR ? %d\n", l.startChar);
@@ -304,7 +286,6 @@ int main() {
                 }
 
                 free(l1.content);
-
             }
         }
         else if (l.type >= 0) {
@@ -320,7 +301,6 @@ int main() {
         if (numOfBases == baseSize - 1) {
             Base = realloc(Base, sizeof(FwdBase*) * (baseSize *= 2));
         }
-
     }
 
     delBases();
