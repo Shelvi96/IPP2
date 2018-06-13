@@ -16,7 +16,7 @@
  */
 typedef struct revNode {
     deList* phoneNumbers;
-    struct revNode* nums[10];
+    struct revNode* nums[12];
 } revNode;
 
 /**
@@ -59,5 +59,10 @@ delNode* revAddRev (revTree* t, char const* numadd, char const* number);
  			pustą listę, jeśli przekierowanie nie istnieje.
  */
 deList* revFindRev (revTree* t, char const* number);
+
+/** @brief Todo
+ * Todo todo todo
+ */
+size_t revFindNonTrivialCount(revNode* root, bool* uniqueSet, size_t len, size_t lCyfr);
 
 #endif /* TREEREV_H */

@@ -90,4 +90,10 @@ void delCopyList (deList* l1, deList* l2, char const* num, unsigned int idx);
  */
 void delDeleteList (deList* l);
 
+/**
+ * @brief Todo
+ * Todo todo todo
+ */
+bool delIsEmpty (deList* l);
+
 #endif /* DOUBLE_ENDED_LIST_H */

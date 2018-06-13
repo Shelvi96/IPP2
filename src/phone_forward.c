@@ -33,7 +33,7 @@ bool isNum(char const* num) {
 		return false;
 	unsigned int c = 0;
 		for (unsigned int i = 0; i < strlen(num); ++i) {
-    		if ( '0' <= num[i] && num[i] <= '9')
+    		if ( '0' <= num[i] && num[i] <= ';')
 	      	c++;
 	  	}
   	if (c == strlen(num))
@@ -86,4 +86,44 @@ char const* phnumGet(PhoneNumbers const* pnum, size_t idx) {
 	if (pnum == NULL)
 		return NULL;
 	return delGetIndex(pnum->pnums, idx);
+}
+
+size_t phfwdNonTrivialCount(PhoneForward *pf, char const *set, size_t len) {
+
+	if (pf == NULL || set == NULL || len == 0) {
+		return 0;
+	}
+
+	bool uniqueSet[12];
+	bool hasNum = false;
+
+	for (size_t i = 0; i < 12; ++i) {
+		uniqueSet[i] = false;
+	}
+
+	size_t setLen = strlen(set);
+
+	for (size_t i = 0; i < setLen; ++i) {
+
+		if ('0' <= set[i] && set[i] <= ';') {
+			uniqueSet[(int)(set[i]-'0')] = true;
+			hasNum = true;
+		}
+
+	}
+
+	if (!hasNum) {
+		return 0;
+	}
+	
+	size_t l = 0;
+	for (size_t i = 0; i < 12; ++i) {
+		if(uniqueSet[i])
+			l++;
+	}
+
+	size_t ret = revFindNonTrivialCount(pf->rev->root, uniqueSet, len, l);
+
+	return ret;
+
 }

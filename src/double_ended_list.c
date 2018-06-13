@@ -115,3 +115,7 @@ void delDeleteList (deList* l) {
 	free(l->last);
 	free(l);
 }
+
+bool delIsEmpty (deList* l) {
+	return l->first->next == l->last;
+}

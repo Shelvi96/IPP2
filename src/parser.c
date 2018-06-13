@@ -75,7 +75,7 @@ bool ignoreWhitespaces () {
 
 bool isDigit (char c) {
 
-	if (c >= '0' && c <= '9')
+	if (c >= '0' && c <= ';')
 		return true;
 
 	return false;
@@ -130,6 +130,7 @@ int findLexemeType (char* lexeme) {
 	if (equals(lexeme,"DEL")) return 5;
 	if (equals(lexeme,">")) return 2;
 	if (equals(lexeme,"?")) return 3;
+	if (equals(lexeme,"@")) return 6;
 	if (isNumber(lexeme)) return 0;
 	if (isId(lexeme)) return 1;
 	isError = true;
@@ -147,6 +148,23 @@ Lexeme makeLexeme(char* lexeme, int sc) {
 
 	return l;
 
+}
+
+void printError () {
+
+	if (errorChar != -2) {
+
+		if (errorChar == -1)
+			fprintf(stderr, "ERROR EOF\n");
+		else
+			fprintf(stderr, "ERROR %d\n", errorChar);
+
+	}
+
+}
+
+bool hasNext () {
+	return !isEOF && !isError;
 }
 
 Lexeme getNextLexeme () {
@@ -169,8 +187,7 @@ Lexeme getNextLexeme () {
 
 		// Wczytujemy kolejny znak, sprawdzamy czy to nie EOF
 		c = getchar();
-// printf("Aktualny znak: %c ", c);
-// printf("numer: %d\n", numOfChar);
+
 		if (c == EOF) {
 			isEOF = true;
 			break;
@@ -236,6 +253,13 @@ Lexeme getNextLexeme () {
 			numOfChar++;
 			break;
 		}
+		if (c == '@' && i == 0) {
+			lexeme[0] = c;
+			lexeme[1] = '\0';
+			numOfChar++;
+			break;
+		}
+
 		// Jesli pojawil sie teraz operator, ale mamy juz jakies symbole,
 		// to zwracamy leksem i odkladamy operator na pozniej
 		if (c == '>' && i > 0) {
@@ -246,6 +270,11 @@ Lexeme getNextLexeme () {
 			ungetc(c, stdin);
 			break;
 		}
+		if (c == '@' && i > 0) {
+			ungetc(c, stdin);
+			break;
+		}
+
 		// Jesli mamy teraz bialy znak, a wczesniej bylo NEW lub DEL,
 		// to wczytujemy je jako operator
 		if(isspace(c) != 0 && equals(lexeme,"NEW")) {
@@ -254,10 +283,12 @@ Lexeme getNextLexeme () {
 		if(isspace(c) != 0 && equals(lexeme,"DEL")) {
 			break;
 		}
+
 		// Jesli pierwszy znak to cyfra, to znaczy ze wczytujemy numer
 		if (i == 0 && isDigit(c)) {
 			isNums = true;
 		}
+
 		// Jak w trakcie wczytywania numeru pojawi sie litera to przerywamy
 		if (isNums && !isDigit(c)) {
 			ungetc(c, stdin);
@@ -266,7 +297,7 @@ Lexeme getNextLexeme () {
 
 		// Jesli obecny znak jest prawidlowy, dodajemy go do leksemu,
 		// jesli zas jest niedopuszczalny, to przerywamy
-		if (isLetter(c) || isDigit(c) || c == '>' || c == '?' || c == '$') {
+		if (isLetter(c) || isDigit(c) || c == '>' || c == '?' || c == '$' || c == '@') {
 			lexeme[i++] = c;
 			lexeme[i] = '\0';
 		}
@@ -288,27 +319,8 @@ Lexeme getNextLexeme () {
 
 	ignoreWhitespaces();
 
-// printf("Leksem: %s\n", lexeme);
-
 	numOfChar += i;
 
 	return l;
 
-}
-
-void printError () {
-
-	if (errorChar != -2) {
-
-		if (errorChar == -1)
-			fprintf(stderr, "ERROR EOF\n");
-		else
-			fprintf(stderr, "ERROR %d\n", errorChar);
-
-	}
-
-}
-
-bool hasNext () {
-	return !isEOF && !isError;
 }

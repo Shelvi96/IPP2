@@ -17,7 +17,7 @@
  * -1: error | -2: EOF
  */
 typedef struct Lexeme {
-	int type; // numer - 0 | identyfikator - 1 | operator > - 2 | operator ? - 3 | operator NEW - 4 | operator DEL - 5 | komentarz - 6 | ERROR - -1 || EOF - -2
+	int type; // numer - 0 | identyfikator - 1 | operator > - 2 | operator ? - 3 | operator NEW - 4 | operator DEL - 5 | koperator @ - 6 | ERROR - -1 || EOF - -2
 	char* content;
 	int startChar;
 } Lexeme;
@@ -82,12 +82,6 @@ int findLexemeType (char* lexeme);
  */
 Lexeme makeLexeme(char* lexeme, int sc);
 
-/** @brief Zwraca kolejny leksem.
- * Wyszukuje w pliku wejściowym leksem spełniający założenia zadania.
- * @return kolejny leksem.
- */
-Lexeme getNextLexeme ();
-
 /** @brief Wypisuje błąd.
  * Jeśli podczas przetwarzania wejścia pojawił się jakiś błąd, to zostaje on
  * wypisany na wyjście diagnostyczne.
@@ -101,5 +95,11 @@ void printError ();
  * @return true, jeśli wystąpił błąd, false w przeciwnym wypadku.
  */
 bool hasNext ();
+
+/** @brief Zwraca kolejny leksem.
+ * Wyszukuje w pliku wejściowym leksem spełniający założenia zadania.
+ * @return kolejny leksem.
+ */
+Lexeme getNextLexeme ();
 
 #endif /* PARSER_H */

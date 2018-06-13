@@ -18,7 +18,7 @@
 typedef struct fwdNode {
     char const* numFwd;
     delNode* pointRev;
-    struct fwdNode* nums[10];
+    struct fwdNode* nums[12];
 } fwdNode;
 
 /**

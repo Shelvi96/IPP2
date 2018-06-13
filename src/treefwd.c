@@ -8,7 +8,7 @@
 fwdNode* fwdSetNode () {
 	fwdNode* n = (fwdNode*)malloc(sizeof(fwdNode));
 	if (n != NULL) {
-		for(int i = 0; i < 10; ++i)
+		for(size_t i = 0; i < 12; ++i)
 			n->nums[i] = NULL;
 		n->pointRev = NULL;
 		n->numFwd = NULL;
@@ -24,7 +24,7 @@ fwdTree* fwdSetTree () {
 }
 
 void fwdDeleteSubtree (fwdNode* n) {
-	for (int i = 0; i < 10; ++i) {
+	for (size_t i = 0; i < 12; ++i) {
 		if (n->nums[i] != NULL)
 			fwdDeleteSubtree(n->nums[i]);
 	}
@@ -37,8 +37,8 @@ bool fwdAddFwd (fwdTree* t, char const* numadd, char const* number, delNode* r) 
 	fwdNode* n = t->root;
 	if (strcmp(numadd, number) == 0)
 		return false;
-	unsigned int dl = strlen(numadd);
-	for (unsigned int i = 0; i < dl; ++i) {
+	size_t dl = strlen(numadd);
+	for (size_t i = 0; i < dl; ++i) {
 		int c = numadd[i] - '0';
 		if (n->nums[c] == NULL) {
 			n->nums[c] = fwdSetNode();
@@ -63,7 +63,7 @@ bool fwdAddFwd (fwdTree* t, char const* numadd, char const* number, delNode* r) 
 
 void fwdDeleteSubfwd (fwdNode* n) {
 	if (n != NULL) {
-		for (int i = 0; i < 10; ++i) {
+		for (size_t i = 0; i < 12; ++i) {
 			if (n->nums[i] != NULL)
 				fwdDeleteSubfwd(n->nums[i]);
 		}
@@ -80,9 +80,9 @@ void fwdDeleteSubfwd (fwdNode* n) {
 
 void fwdRemoveFwd (fwdTree* t, char const* number) {
 	fwdNode* n = t->root;
-	unsigned int i = 0;
 	bool exists = true;
-	unsigned int dl = strlen(number);
+	size_t i = 0;
+	size_t dl = strlen(number);
 	for (i = 0; i < dl; ++i) {
 		int c = number[i] - '0';
 		if (n->nums[c] == NULL) {
@@ -99,9 +99,9 @@ void fwdRemoveFwd (fwdTree* t, char const* number) {
 
 deList* fwdFindFwd (fwdTree* t, char const* number) {
 	fwdNode* n = t->root;
-	unsigned int i = 0, j = 0;
 	char* f = NULL;
-	unsigned int dl = strlen(number);
+	size_t i = 0, j = 0;
+	size_t dl = strlen(number);
 	while (i < dl && n->nums[(int)(number[i]-'0')] != NULL) {
 		if (n->numFwd != NULL) {
 			f = (char*)(n->numFwd);

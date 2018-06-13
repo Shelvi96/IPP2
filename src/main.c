@@ -281,6 +281,32 @@ int main() {
             }
 
         }
+        else if (l.type == 6) {
+            checkIsEOF(l);
+
+            if (hasNext()) {
+
+                Lexeme l1 = getNextLexeme();
+
+                if (l1.type == 0 && currentBase != NULL) { // wczytano numer
+                    int len = strlen(l1.content) - 12;
+                    if (len < 0) len = 0;
+                    printf("%zu\n", phfwdNonTrivialCount(currentBase->base, l1.content, len));
+
+                }
+                else if (currentBase == NULL) {
+                    fprintf(stderr, "ERROR ? %d\n", l.startChar);
+                    exit1(l, l1);
+                }
+                else {
+                    fprintf(stderr, "ERROR %d\n", l1.startChar);
+                    exit1(l, l1);
+                }
+
+                free(l1.content);
+
+            }
+        }
         else if (l.type >= 0) {
             fprintf(stderr, "ERROR %d\n", l.startChar);
             free(l.content);
