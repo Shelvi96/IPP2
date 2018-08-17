@@ -1,0 +1,37 @@
+NEW identyfikator0
+NEW identyfikator1
+NEW identyfikator2
+12345 > 999
+12346 > 999
+12347 > 999
+12348 > 999
+12349 > 999
+12350 > 999
+22345 > 992
+22346 > 992
+22347 > 992
+22348 > 992
+22349 > 992
+22350 > 992
+12348 ?
+$$ Lorem ipsum $$
+NEW identyfikator1
+12445 > 998
+12446 > 998
+12447 > 998
+12448 > 998
+12449 > 998
+12450 > 998
+? 998
+DEL 12449
+? 998
+NEW identyfikator2
+12445 > 998
+12446 > 998
+12447 > 998
+12350 ?
+? 12446
+? 998
+DEL identyfikator2
+DEL identyfikator1
+DEL identyfikator0

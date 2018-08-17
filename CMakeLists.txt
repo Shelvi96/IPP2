@@ -30,8 +30,8 @@ set(SOURCE_FILES
   src/phone_forward.c
   src/parser.h
   src/parser.c
-  src/main.h
-  src/main.c)
+  src/phone_forward_main.h
+  src/phone_forward_main.c)
 
 # Wskazujemy plik wykonywalny.
 add_executable(phone_forward ${SOURCE_FILES})

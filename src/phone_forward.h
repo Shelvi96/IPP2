@@ -116,7 +116,8 @@ void phnumDelete(PhoneNumbers const* pnum);
 char const* phnumGet(PhoneNumbers const* pnum, size_t idx);
 
 /** @brief Oblicza liczbę nietrywialnych numerów.
- * Oblicza liczbę nietrywialnych numerów długości @p len zawierających tylko cyfry, które znajdują się w napisie @p set.
+ * Oblicza liczbę nietrywialnych numerów długości @p len zawierających tylko
+ * cyfry, które znajdują się w napisie @p set.
  * @param[in] pf  – wskaźnik na strukturę przechowującą przekierowania numerów.
  * @param[in] set – wskaźnik na napis, z którego cyfr budujemy numer.
  * @param[in] len – długość poszukiwanych numerów.

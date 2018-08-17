@@ -13,11 +13,11 @@
  * Struktura przechowująca pojedynczy leksem.
  * Leksemem może być operator, numer lub identyfikator.
  * Każdy leksem ma swój numer wskazujący jakiego rodzaju leksemem jest.
- * 0: numer | 1: id | 2: operator > | 3: operator ? | 4: operator NEW | 5: operator DEL
- * -1: error | -2: EOF
  */
 typedef struct Lexeme {
-	int type; // numer - 0 | identyfikator - 1 | operator > - 2 | operator ? - 3 | operator NEW - 4 | operator DEL - 5 | koperator @ - 6 | ERROR - -1 || EOF - -2
+	int type; 	// numer - 0 | identyfikator - 1 | operator > - 2 | operator ? - 3
+				// operator NEW - 4 | operator DEL - 5 | operator @ - 6 
+				// ERROR - -1 | EOF - -2
 	char* content;
 	int startChar;
 } Lexeme;

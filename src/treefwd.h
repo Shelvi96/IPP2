@@ -8,6 +8,7 @@
 
 #ifndef TREEFWD_H
 #define TREEFWD_H
+#define NUMLEN 12
 
 /**
  * Struktura przechowująca wirzchołek drzewa przekierowań.
@@ -18,7 +19,7 @@
 typedef struct fwdNode {
     char const* numFwd;
     delNode* pointRev;
-    struct fwdNode* nums[12];
+    struct fwdNode* nums[NUMLEN];
 } fwdNode;
 
 /**

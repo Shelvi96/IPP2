@@ -8,6 +8,7 @@
 
 #ifndef TREEREV_H
 #define TREEREV_H
+#define NUMLEN 12
 
 /**
  * Struktura przechowująca wirzchołek drzewa odwracania przekierowań.
@@ -16,7 +17,7 @@
  */
 typedef struct revNode {
     deList* phoneNumbers;
-    struct revNode* nums[12];
+    struct revNode* nums[NUMLEN];
 } revNode;
 
 /**

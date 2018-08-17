@@ -4,13 +4,22 @@
 #include <stdbool.h>
 #include "double_ended_list.h"
 #include "treefwd.h"
+#include "phone_forward.h"
+#include "phone_forward_main.h"
+#define NUMLEN 12
 
 fwdNode* fwdSetNode () {
-
 	fwdNode* n = (fwdNode*)malloc(sizeof(fwdNode));
-	if (n != NULL) {
 
-		for(size_t i = 0; i < 12; ++i) {
+	// Malloc failure
+    if (n == NULL) {
+    	delBases();
+    	fprintf(stderr, "MALLOC ERROR\n");
+    	exit(1);
+    }
+
+	if (n != NULL) {
+		for(size_t i = 0; i < NUMLEN; ++i) {
 			n->nums[i] = NULL;
 		}
 
@@ -22,8 +31,15 @@ fwdNode* fwdSetNode () {
 }
 
 fwdTree* fwdSetTree () {
-
 	fwdTree* t = (fwdTree*)malloc(sizeof(fwdTree));
+
+	// Malloc failure
+    if (t == NULL) {
+    	delBases();
+    	fprintf(stderr, "MALLOC ERROR\n");
+    	exit(1);
+    }
+
 	if (t != NULL) {
 		t->root = fwdSetNode();
 	}
@@ -32,8 +48,7 @@ fwdTree* fwdSetTree () {
 }
 
 void fwdDeleteSubtree (fwdNode* n) {
-
-	for (size_t i = 0; i < 12; ++i) {
+	for (size_t i = 0; i < NUMLEN; ++i) {
 		if (n->nums[i] != NULL) {
 			fwdDeleteSubtree(n->nums[i]);
 		}
@@ -47,15 +62,15 @@ void fwdDeleteSubtree (fwdNode* n) {
 }
 
 bool fwdAddFwd (fwdTree* t, char const* numadd, char const* number, delNode* r) {
-
 	fwdNode* n = t->root;
+
 	if (strcmp(numadd, number) == 0) {
 		return false;
 	}
 
 	size_t dl = strlen(numadd);
-	for (size_t i = 0; i < dl; ++i) {
 
+	for (size_t i = 0; i < dl; ++i) {
 		int c = numadd[i] - '0';
 
 		if (n->nums[c] == NULL) {
@@ -64,18 +79,26 @@ bool fwdAddFwd (fwdTree* t, char const* numadd, char const* number, delNode* r) 
 
 		n = n->nums[c];
 	}
-	if (n->pointRev != NULL) {
 
+	if (n->pointRev != NULL) {
 		delRemoveNode(n->pointRev);
 		n->pointRev = NULL;
 	}
-	if (n->numFwd != NULL) {
 
+	if (n->numFwd != NULL) {
 		free((void*)n->numFwd);
 		n->numFwd = NULL;
 	}
 
 	n->numFwd = malloc(strlen(number) + 1);
+
+	// Malloc failure
+    if (n->numFwd == NULL) {
+    	delBases();
+    	fprintf(stderr, "MALLOC ERROR\n");
+    	exit(1);
+    }
+
 	strcpy((char*)(n->numFwd), number);
 	n->pointRev = r;
 
@@ -83,10 +106,8 @@ bool fwdAddFwd (fwdTree* t, char const* numadd, char const* number, delNode* r) 
 }
 
 void fwdDeleteSubfwd (fwdNode* n) {
-
 	if (n != NULL) {
-
-		for (size_t i = 0; i < 12; ++i) {
+		for (size_t i = 0; i < NUMLEN; ++i) {
 			if (n->nums[i] != NULL) {
 				fwdDeleteSubfwd(n->nums[i]);
 			}
@@ -104,15 +125,14 @@ void fwdDeleteSubfwd (fwdNode* n) {
 }
 
 void fwdRemoveFwd (fwdTree* t, char const* number) {
-
 	fwdNode* n = t->root;
 	bool exists = true;
 	size_t i = 0;
 	size_t dl = strlen(number);
 
 	for (i = 0; i < dl; ++i) {
-
 		int c = number[i] - '0';
+
 		if (n->nums[c] == NULL) {
 			exists = false;
 			break;
@@ -128,14 +148,12 @@ void fwdRemoveFwd (fwdTree* t, char const* number) {
 }
 
 deList* fwdFindFwd (fwdTree* t, char const* number) {
-
 	fwdNode* n = t->root;
 	char* f = NULL;
 	size_t i = 0, j = 0;
 	size_t dl = strlen(number);
 
 	while (i < dl && n->nums[(int)(number[i]-'0')] != NULL) {
-
 		if (n->numFwd != NULL) {
 			f = (char*)(n->numFwd);
 			j = i;
@@ -144,6 +162,7 @@ deList* fwdFindFwd (fwdTree* t, char const* number) {
 		n = n->nums[(int)(number[i]-'0')];
 		++i;
 	}
+
 	if (n->numFwd != NULL) {
 		f = (char*)(n->numFwd);
 		j = i;
@@ -157,6 +176,14 @@ deList* fwdFindFwd (fwdTree* t, char const* number) {
 	}
 
 	char* newNum = malloc(strlen(f) + strlen(number) + 1);
+
+	// Malloc failure
+    if (newNum == NULL) {
+    	delBases();
+    	fprintf(stderr, "MALLOC ERROR\n");
+    	exit(1);
+    }
+
 	strcpy(newNum, f);
 	strcpy(newNum + strlen(f), number + j);
 

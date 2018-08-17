@@ -1,0 +1,30 @@
+Testy z kodem wyjścia 0
+
+empty.in  - puste wejście
+spaces.in - tylko kilka spacji
+test_1.in - poprawne wejście
+test_2.in - użycie new i del w identyfikatorach
+test_3.in - zera na początku numeru, długie numery
+test_4.in - NEW bez DEL
+test_5.in - wiele białych znaków: spacje, \t, \n, \r
+test_6.in - znaki : i ;
+test_7.in - tylko jedna spacja w komentarzu
+test_8.in - 100 baz przekierowań
+test_9.in - bardzo sługi identyfikator
+nontrivial.in - operator @
+all_in_one.in - wszystkie operacje, dużo operacji
+
+Testy z kodem wyjścia 1
+
+test_10.in - dodanie przekierowań bez aktualnej bazy
+test_11.in - zapytanie o numer z nieaktualnej bazy
+test_12.in - z pytań na forum: $$
+test_13.in - z pytań na forum: ? 1@
+test_14.in - z pytań na forum: NEW NEW@1
+test_15.in - identyfikator rozpoczynający się cyfrą
+test_16.in - z pytań na forum: N$$EW ID
+test_17.in - niepoprawny znak w identyfikatorze
+test_18.in - usunięcie nieistniejącego identyfikatora
+test_19.in - niepoprawny numer
+test_20.in - niepoprawny argument operatora @
+test_21.in - znak o kodzie ASCII 255 nie może być rozpoznany jako koniec danych

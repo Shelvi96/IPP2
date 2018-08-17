@@ -3,37 +3,48 @@
 #include <string.h>
 #include <stdbool.h>
 #include "double_ended_list.h"
+#include "phone_forward.h"
+#include "phone_forward_main.h"
 
 delNode* delSetNode(char const* x) {
-
 	delNode* v = (delNode*)malloc(sizeof(delNode));
-	if (v != NULL) {
-		char* num = malloc(strlen(x)+1);
-		strcpy(num, x);
 
-		v->number = num;
-		v->prev = NULL;
-		v->next = NULL;
-	}
+	// Malloc failure
+    if (v == NULL) {
+    	delBases();
+    	fprintf(stderr, "MALLOC ERROR\n");
+    	exit(1);
+    }
+
+	char* num = malloc(strlen(x)+1);
+	strcpy(num, x);
+
+	v->number = num;
+	v->prev = NULL;
+	v->next = NULL;
 
 	return v;
 }
 
 deList* delSetList () {
-
 	deList* l = (deList*)malloc(sizeof(delNode));
-	if (l != NULL) {
-		l->first = delSetNode("");
-		l->last = delSetNode("");
-		(l->first)->next = l->last;
-		(l->last)->prev = l->first;
-	}
+
+	// Malloc failure
+    if (l == NULL) {
+    	delBases();
+    	fprintf(stderr, "MALLOC ERROR\n");
+    	exit(1);
+    }
+
+	l->first = delSetNode("");
+	l->last = delSetNode("");
+	(l->first)->next = l->last;
+	(l->last)->prev = l->first;
 
 	return l;
 }
 
 void delAddFront (deList* l, char const* x) {
-
 	delNode* n = delSetNode(x);
 	n->prev = (l->first);
 	n->next = (l->first)->next;
@@ -42,7 +53,6 @@ void delAddFront (deList* l, char const* x) {
 }
 
 void delAddSort (deList* l, char const* x) {
-
 	delNode* n = delSetNode(x);
 	delNode* el = l->first->next;
 
@@ -63,16 +73,16 @@ void delAddSort (deList* l, char const* x) {
 }
 
 char const* delGetIndex (deList* l, int index) {
-
 	if ((l->last)->prev == l->first){
 		return NULL;
 	}
 
 	int i = 0;
 	delNode* n = l->first;
-	for (i = 0; i <= index; ++i) {
 
+	for (i = 0; i <= index; ++i) {
 		n = n->next;
+
 		if (n == l->last){
 			return NULL;
 		}
@@ -82,11 +92,10 @@ char const* delGetIndex (deList* l, int index) {
 }
 
 void delRemoveFront (deList* l) {
-
 	if ((l->first)->next != l->last) {
-
 		delNode* n = l->first->next;
 		free(n->number);
+
 		(n->next)->prev = l->first;
 		(l->first)->next = n->next;
 		free(n);
@@ -94,9 +103,7 @@ void delRemoveFront (deList* l) {
 }
 
 void delRemoveNode (delNode* n) {
-
 	if (n != NULL) {
-
 		n->prev->next = n->next;
 		n->next->prev = n->prev;
 
@@ -109,10 +116,9 @@ void delRemoveNode (delNode* n) {
 }
 
 void delCopyList (deList* l1, deList* l2, char const* num, unsigned int idx) {
-
 	delNode* n = l2->first->next;
-	while (n != l2->last) {
 
+	while (n != l2->last) {
 		char* f = n->number;
 		char* newNum = malloc(strlen(f) + strlen(num) + 1);
 		strcpy(newNum, f);
@@ -125,8 +131,8 @@ void delCopyList (deList* l1, deList* l2, char const* num, unsigned int idx) {
 }
 
 void delDeleteList (deList* l) {
-
 	delNode* n = l->first->next;
+
 	while (n != l->last) {
 		n = n->next;
 		delRemoveFront(l);
@@ -140,6 +146,5 @@ void delDeleteList (deList* l) {
 }
 
 bool delIsEmpty (deList* l) {
-	
 	return l->first->next == l->last;
 }
